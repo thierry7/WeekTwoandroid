@@ -28,8 +28,11 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
         recyclerView = findViewById(R.id.recycler_music)
         mRefreshLayout = findViewById(R.id.refresh_layout)
         tabLayout = findViewById(R.id.tab_layout)
-
         mRefreshLayout.setOnRefreshListener {
+
+            if(tabLayout.getTabAt(0)?.isSelected!!){
+            firstPageRefrshLoad(tabLayout)}
+
             loadData(tabLayout)
            mRefreshLayout.isRefreshing = false }
 
@@ -139,6 +142,39 @@ class MainActivity : AppCompatActivity(), SwipeRefreshLayout.OnRefreshListener {
                     }
             )
 
+    }
+    private fun firstPageRefrshLoad(tabLayout: TabLayout){
+
+            MusicsAPI.initretrofit().getMusic("rock").enqueue(
+                    object : Callback<MusicResponse>, ClickInterface {
+                        override fun onResponse(call: Call<MusicResponse>, response: Response<MusicResponse>) {
+                            if (response.isSuccessful) {
+                                response.body()?.let {
+                                    recyclerView.layoutManager = GridLayoutManager(this@MainActivity, 1)
+                                    recyclerView.adapter = MyAdapter(it.results, this)
+                                    myRocklist = it.results
+                                }
+                            }
+                        }
+
+                        override fun onFailure(
+                                call: Call<MusicResponse>,
+                                t: Throwable
+                        ) {
+                            Toast.makeText(baseContext, "$call.", Toast.LENGTH_SHORT).show()
+                            println(call)
+
+                        }
+
+                        override fun onCellClickListener(position: Int) {
+                            val itent = Intent()
+                            itent.action = Intent.ACTION_VIEW;
+                            itent.setDataAndType(Uri.parse(myRocklist[position].previewUrl), "audio/mp3")
+                            startActivity(itent)
+                        }
+
+
+                    })
     }
 
     override fun onRefresh() {
