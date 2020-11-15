@@ -27,16 +27,12 @@ class MyAdapter (val dataSet: List<MusicItem>,
             Picasso.get().load(musicItem.artworkUrl60).into(pict)
             title.text = musicItem.artistName
             album.text = musicItem.collectionName
-            price.text = musicItem.trackPrice.toString() +"USD"
+            price.text = musicItem.trackPrice.toString() +" USD"
 
         }
 
 
     }
-    fun getList(): List<MusicItem>{
-        return dataSet
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
         return MovieViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_recycler, parent, false))
 

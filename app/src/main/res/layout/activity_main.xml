@@ -11,33 +11,41 @@
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_layout"
         android:layout_width="match_parent"
+        android:background="@color/purple_200"
         android:layout_height="match_parent">
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/t_rock_tab"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:icon="@color/cardview_dark_background"
+            android:icon="@drawable/ic_launcher_foreground"
             android:text="ROCK" />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/t_classic_tab"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:icon="@color/cardview_dark_background"
+            android:icon="@drawable/classicmusic"
             android:text="CLASSIC" />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/t_pop_tab"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:icon="@color/cardview_dark_background"
+            android:icon="@drawable/popmusic"
             android:text="POP" />
     </com.google.android.material.tabs.TabLayout>
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    android:id="@+id/refresh_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_music"
         android:layout_width="match_parent"
         android:layout_height="656dp"/>
+
+
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 </LinearLayout>
